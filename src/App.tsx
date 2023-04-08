@@ -1,25 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useEffect} from 'react';
 import './App.css';
+import AppRouter from './components/AppRouter';
+import {Layout} from "antd";
+import {useDispatch} from "react-redux";
+import {AppDispatch} from "./store";
+import {configSlice, ViewportNames} from "./store/reducers/config";
+import {useTypedSelector} from "./hooks/redux";
+import NavBar from "./components/NavBar";
+import FooterCommon from "./components/Footer";
 
 function App() {
+    const dispatch = useDispatch<AppDispatch>()
+    const {viewport} = useTypedSelector(state => state.configReducer)
+
+    useEffect(() => {
+        dispatch(configSlice.actions.setViewport())
+    }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Layout>
+        {viewport !== ViewportNames.LARGE &&
+            <NavBar/>
+        }
+        <Layout.Content>
+            <AppRouter/>
+        </Layout.Content>
+        <FooterCommon/>
+    </Layout>
   );
 }
 
