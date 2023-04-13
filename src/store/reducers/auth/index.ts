@@ -18,8 +18,19 @@ export const authSlice = createSlice({
         setIsAuth(state, action: PayloadAction<boolean>){
             state.isAuth = action.payload
         },
-        checkPassword(state){
+        checkingPassword(state){
             state.isLoading = true
+        },
+        checkingPasswordSuccess(state, action: PayloadAction<string>) {
+            state.isLoading = false
+            state.error = ''
+            state.password = action.payload
+            state.isAuth = true
+        },
+        checkingPasswordError(state, action: PayloadAction<string>) {
+            state.isLoading = false
+            state.error = action.payload
+            state.isAuth = false
         }
     }
 })

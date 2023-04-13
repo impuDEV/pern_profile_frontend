@@ -2,21 +2,15 @@ import React, {FC, useState} from 'react';
 import {useTypedSelector} from "../hooks/redux";
 import {Button, Card, Form, Input} from "antd";
 import {rules} from "../utils/rules";
-import { useLocation } from 'react-router-dom';
-import {RouteNames} from "../router";
-import {useDispatch} from "react-redux";
-import {AppDispatch} from "../store";
-import {authSlice} from "../store/reducers/auth";
-import {AuthActionCreators} from "../store/reducers/auth/ActionCreators";
+import {useActions} from "../hooks/useActions";
 
 const LoginForm: FC = () => {
     const {error, isLoading} = useTypedSelector(state => state.authReducer)
     const [password, setPassword] = useState('')
-    const dispatch = useDispatch<AppDispatch>()
-
+    const {login} = useActions()
 
     const submit = () => {
-        dispatch(AuthActionCreators.login(password))
+        login(password)
     }
 
     return (
