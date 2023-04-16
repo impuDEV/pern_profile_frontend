@@ -1,5 +1,5 @@
 export interface AuthState {
-    password: string
+    // password: string
     isAuth: boolean
     isLoading: boolean
     error: string

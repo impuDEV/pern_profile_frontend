@@ -12,7 +12,7 @@ const NavBar: FC = () => {
                   selectable={false}
             >
                 <Menu.Item key="logo">
-                    <NavLink to={RouteNames.MAIN}
+                    <NavLink to={RouteNames.ADMIN}
                              style={{color: 'white'}}
                     >impuDEV</NavLink>
                 </Menu.Item>
