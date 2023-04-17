@@ -1,5 +1,4 @@
 import React, {FC} from 'react';
-import {useStore} from "react-redux";
 
 const Main: FC = () => {
     return (

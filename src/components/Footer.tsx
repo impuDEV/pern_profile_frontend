@@ -3,7 +3,6 @@ import {Layout} from "antd";
 import {NavLink, useLocation} from "react-router-dom";
 import {RouteNames} from "../router";
 import {useTypedSelector} from "../hooks/redux";
-import {authSlice} from "../store/reducers/auth";
 import {useDispatch} from "react-redux";
 import {AppDispatch} from "../store";
 import {AuthActionCreators} from "../store/reducers/auth/ActionCreators";
