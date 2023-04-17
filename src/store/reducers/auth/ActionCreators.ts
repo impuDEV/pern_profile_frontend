@@ -1,35 +1,51 @@
 import {AppDispatch} from "../../index";
 import {authSlice} from "./index";
 import AuthService from "../../../http/AuthService";
-import {AxiosError, AxiosResponse} from "axios";
+import {AxiosResponse} from "axios";
 import {IAuth} from "../../../models/IAuth";
 
 export const AuthActionCreators = {
     login: (password: string) => async (dispatch: AppDispatch) => {
         try {
-            dispatch(authSlice.actions.checkingPassword)
+            dispatch(authSlice.actions.checkingPassword())
             setTimeout(async () => {
                 await AuthService.login(password)
                     .then((response:AxiosResponse<IAuth>) => {
                         localStorage.setItem('token', response.data.token)
-                        console.log(response)
-                        dispatch(authSlice.actions.checkingPasswordSuccess)
+                        dispatch(authSlice.actions.checkingPasswordSuccess())
+                        console.log('login accomplished ...')
                     })
                     .catch((error) => {
-                        console.log(error)
-                        if (error instanceof AxiosError){
-                            dispatch(authSlice.actions.checkingPasswordError(error.message))
-                        }
+                        const {message} = error.response.data
+                        dispatch(authSlice.actions.checkingPasswordError(message))
                     })
             }, 1000)
 
         } catch (e) {
-            console.log(e)
+            console.log(e)  //TODO
         }
     },
 
     logout: () => async (dispatch: AppDispatch) => {},
 
-    check: () => async (dispatch: AppDispatch) => {},
+    check: () => async (dispatch: AppDispatch) => {
+        await AuthService.check()
+            .then((response: AxiosResponse<IAuth>) => {
+                console.log(response.data)
+                if(response.data.token){
+                    dispatch(authSlice.actions.checkingPasswordSuccess())
+                    localStorage.setItem('token', response.data.token)
+                }
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    },
 
 }
+
+
+
+
+
+

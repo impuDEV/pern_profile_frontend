@@ -6,6 +6,7 @@ import {ViewportNames} from "../store/reducers/config";
 
 const Login: FC = () => {
     const {viewport} = useTypedSelector(state => state.configReducer)
+
     return (
         <Layout>
             <Row justify="center"

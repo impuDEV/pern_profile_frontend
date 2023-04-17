@@ -21,10 +21,10 @@ export const authSlice = createSlice({
         checkingPassword(state){
             state.isLoading = true
         },
-        checkingPasswordSuccess(state, action: PayloadAction<string>) {
+        checkingPasswordSuccess(state) {
             state.isLoading = false
             state.error = ''
-            state.password = action.payload
+            // state.password = action.payload
             state.isAuth = true
         },
         checkingPasswordError(state, action: PayloadAction<string>) {

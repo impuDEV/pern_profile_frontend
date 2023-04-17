@@ -8,14 +8,21 @@ import {configSlice, ViewportNames} from "./store/reducers/config";
 import {useTypedSelector} from "./hooks/redux";
 import NavBar from "./components/NavBar";
 import FooterCommon from "./components/Footer";
+import {useActions} from "./hooks/useActions";
 
 function App() {
     const dispatch = useDispatch<AppDispatch>()
     const {viewport} = useTypedSelector(state => state.configReducer)
+    const {isAuth} = useTypedSelector(state => state.authReducer)
+    const {check, setIsAuth} = useActions()
 
-    useEffect(() => {
+    useEffect( () => {
         dispatch(configSlice.actions.setViewport())
+        if(localStorage.getItem('token')) {
+            setIsAuth(true)
+        }
     }, [])
+
 
   return (
     <Layout>
