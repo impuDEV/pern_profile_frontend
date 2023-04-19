@@ -6,3 +6,13 @@
 .h100small {
   height: calc(100vh - 2*64px);
 }
+
+.site-layout-content-large {
+  min-height: calc(100vh - 114px);
+  padding: 24px;
+}
+
+.site-layout-content-small {
+  min-height: calc(100vh - 178px);
+  padding: 24px;
+}
