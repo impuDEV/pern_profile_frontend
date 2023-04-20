@@ -13,7 +13,6 @@ export const AuthActionCreators = {
                     .then((response:AxiosResponse<IAuth>) => {
                         localStorage.setItem('token', response.data.token)
                         dispatch(authSlice.actions.checkingPasswordSuccess())
-                        console.log('login accomplished ...')
                     })
                     .catch((error) => {
                         const {message} = error.response.data
@@ -26,7 +25,10 @@ export const AuthActionCreators = {
         }
     },
 
-    logout: () => async (dispatch: AppDispatch) => {},
+    logout: () => async (dispatch: AppDispatch) => {
+        localStorage.removeItem('token')
+        dispatch(authSlice.actions.setIsAuth(false))
+    },
 
     check: () => async (dispatch: AppDispatch) => {
         await AuthService.check()

@@ -19,7 +19,6 @@ const Main: FC = () => {
     }, [])
 
     return (
-
         <Content style={{padding: '0 50px',
             paddingTop: '50px'
         }}>
