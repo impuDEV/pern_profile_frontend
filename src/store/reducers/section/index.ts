@@ -1,24 +1,42 @@
 import {SectionState} from "./types";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {ISection} from "../../../models/ISection";
 
 const initialState: SectionState = {
-    index: 0,
-    title: '',
-    description: ''
+    sections: [],
+    currentIndex: undefined,
+    isLoading: false,
+    error: ''
 }
 
 export const sectionSlice = createSlice({
     name: "section",
     initialState,
     reducers: {
-        setIndex(state, action: PayloadAction<number>) {
-            state.index = action.payload
+        setIsLoading(state, action: PayloadAction<boolean>) {
+            state.isLoading = action.payload
         },
-        setTitle(state, action: PayloadAction<string>) {
-            state.title = action.payload
+        setCurrent(state, action: PayloadAction<number | undefined>) {
+            state.currentIndex = action.payload
         },
-        setDescription(state, action: PayloadAction<string>) {
-            state.title = action.payload
+        setSections(state, action: PayloadAction<ISection[]>) {
+            state.sections = action.payload
+        },
+        setError(state, action: PayloadAction<string>) {
+            state.error = action.payload
+        },
+        sectionFetching(state) {
+            state.isLoading = true
+        },
+        sectionFetchingSuccess(state, action: PayloadAction<ISection[]>) {
+            state.isLoading = false
+            state.error = ''
+            state.sections = action.payload
+        },
+        sectionFetchingError(state, action: PayloadAction<string>) {
+            state.isLoading = false
+            state.currentIndex = undefined
+            state.error = action.payload
         },
 
     }

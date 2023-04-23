@@ -3,7 +3,7 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 const initialState: AuthState = {
     isAuth: false,
-    isLoading: false,
+    isLoading: true,
     error: ''
 }
 
@@ -20,16 +20,17 @@ export const authSlice = createSlice({
         checkingPassword(state){
             state.isLoading = true
         },
-        checkingPasswordSuccess(state) {
+        checkingPasswordSuccess(state, action: PayloadAction<string>) {
             state.isLoading = false
             state.error = ''
-            // state.password = action.payload
             state.isAuth = true
+            localStorage.setItem('token', action.payload)
         },
         checkingPasswordError(state, action: PayloadAction<string>) {
             state.isLoading = false
             state.error = action.payload
             state.isAuth = false
+            localStorage.removeItem('token')
         }
     }
 })

@@ -16,3 +16,15 @@
   min-height: calc(100vh - 178px);
   padding: 24px;
 }
+
+.nav-bar-button {
+  font-size: x-large;
+  height: 100%;
+}
+.nav-bar-button>span>svg:hover {
+  color: cyan;
+}
+
+.nav-bar-logo {
+  color: white;
+}

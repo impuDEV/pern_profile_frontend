@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import {RouteNames} from "../router";
 
 const LoginForm: FC = () => {
-    const {error, isLoading, isAuth} = useTypedSelector(state => state.authReducer)
+    const {error, isAuth} = useTypedSelector(state => state.authReducer)
     const [password, setPassword] = useState('')
     const {login} = useActions()
     const navigate = useNavigate()
@@ -39,7 +39,6 @@ const LoginForm: FC = () => {
                 <Form.Item style={{float:'right'}}>
                     <Button type="primary"
                             htmlType="submit"
-                            loading={isLoading}
                     >
                         Sign in
                     </Button>

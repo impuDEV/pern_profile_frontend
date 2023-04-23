@@ -11,14 +11,13 @@ export const AuthActionCreators = {
             setTimeout(async () => {
                 await AuthService.login(password)
                     .then((response:AxiosResponse<IAuth>) => {
-                        localStorage.setItem('token', response.data.token)
-                        dispatch(authSlice.actions.checkingPasswordSuccess())
+                        dispatch(authSlice.actions.checkingPasswordSuccess(response.data.token))
                     })
                     .catch((error) => {
                         const {message} = error.response.data
                         dispatch(authSlice.actions.checkingPasswordError(message))
                     })
-            }, 1000)
+            }, 3000)
 
         } catch (e) {
             console.log(e)  //TODO
@@ -31,17 +30,20 @@ export const AuthActionCreators = {
     },
 
     check: () => async (dispatch: AppDispatch) => {
-        await AuthService.check()
-            .then((response: AxiosResponse<IAuth>) => {
-                console.log(response.data)
-                if(response.data.token){
-                    dispatch(authSlice.actions.checkingPasswordSuccess())
-                    localStorage.setItem('token', response.data.token)
-                }
-            })
-            .catch((error) => {
-                console.log(error)
-            })
+        dispatch(authSlice.actions.checkingPassword())
+        setTimeout(async () => {
+            await AuthService.check()
+                .then((response: AxiosResponse<IAuth>) => {
+                    if(response.data.token){
+                        dispatch(authSlice.actions.checkingPasswordSuccess(response.data.token))
+                    }
+                })
+                .catch((error) => {
+                    const {message} = error.response.data
+                    dispatch(authSlice.actions.checkingPasswordError(''))
+                })
+        }, 1000)
+
     },
 
 }

@@ -1,5 +1,8 @@
+import {ISection} from "../../../models/ISection";
+
 export interface SectionState {
-    index: number
-    title: string
-    description: string
+    sections: ISection[]
+    currentIndex: number | undefined
+    isLoading: boolean
+    error: string
 }

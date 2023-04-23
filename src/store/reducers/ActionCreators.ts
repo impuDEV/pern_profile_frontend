@@ -5,7 +5,6 @@ import {sectionSlice} from "./section";
 
 export const allActionCreators = {
     ...AuthActionCreators,
-    ...authSlice.actions,
+    // ...authSlice.actions,
     ...SectionActionCreators,
-    ...sectionSlice.actions
 }
